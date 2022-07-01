@@ -1,9 +1,25 @@
-import React from "react";
+import React, { FC } from "react";
+import Task from './Task'
 
-export default function Column(){
+interface Props {
+  list: Column
+  // todos: Array<Todo>
+  key: number
+}
+
+
+const Column = ({list}: Props) =>  {
   return(
     <div>
-      <p>List of todos</p>
+      <p>{list.name}</p>
+      {/* {list.todoList.map((task: Todo, key: number) => {
+        return <Task key={key} />
+      })
+      } */}
+
     </div>
   )
 }
+
+
+export default Column;

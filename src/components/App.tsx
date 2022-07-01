@@ -1,30 +1,33 @@
-import logo from './logo.svg';
 import '../App.css';
-import React, { Component } from 'react';
+import React, { FC, useState } from 'react';
 import Column from './Column';
 
 
-interface User{
+const columnList: Array<Column> = [
+  {name: 'Todo', todoList:[]},
+  {name: 'In Progress', todoList:[]},
+  {name: 'Completed', todoList:[]}
+]
 
-}
 
-class App extends Component{
-  constructor(props:User){
-    super(props);
-    this.state = {
-      todos:[],
-      // list of columns name [todo - title]
-    }
-  }
-  render(): React.ReactNode {
-    
+const todoList: Array<Todo> = [
+
+]
+
+const App: FC = () =>  {
+
+  // const [column, columnState] = useState(columnList)
+
     return (
       <div className="App">
-        <p>Something cool!</p>
-        <Column />
+        
+        {columnList.map((list: Column, key: number) => {
+          return <Column list={list} key={key} />
+        })
+        }
       </div>
     );
-  }
+  
 }
 
 export default App;
