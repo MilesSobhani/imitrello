@@ -1,21 +1,21 @@
+import { ListenOptions } from "net";
 import React, { FC } from "react";
 import Task from './Task'
 
 interface Props {
   list: Column
-  // todos: Array<Todo>
   key: number
 }
 
 
 const Column = ({list}: Props) =>  {
   return(
-    <div>
+    <div className="column">
       <p>{list.name}</p>
-      {/* {list.todoList.map((task: Todo, key: number) => {
-        return <Task key={key} />
+      {list.todoList.map((task: Todo, key: number) => {
+        return <Task key={key} task={task} />
       })
-      } */}
+      }
 
     </div>
   )
