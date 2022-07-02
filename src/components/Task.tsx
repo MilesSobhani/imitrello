@@ -12,8 +12,7 @@ const Task = ({task}: Props) =>  {
   <div className="card-body">
     <h5 className="card-title">{task.title}</h5>
     <p className="card-text">{task.notes}</p>
-    <span className="badge badge-pill badge-info">Info</span>
-    {/* <a href="#" className="btn btn-primary"></a> */}
+    <span className="badge bg-primary">{task.type}</span>
   </div>
 </div>
   )

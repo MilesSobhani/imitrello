@@ -1,9 +1,9 @@
-import { ListenOptions } from "net";
+
 import React, { FC } from "react";
 import Task from './Task'
 
 interface Props {
-  list: Column
+  list: Column,
   key: number
 }
 
