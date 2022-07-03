@@ -1,14 +1,10 @@
-import React, { FC } from "react";
-import { isPropertySignature } from "typescript";
-
-interface Props {
-  task:Todo
-}
+import React from "react";
 
 
-const Task = ({task}: Props) =>  {
+const Task = ({taskIndex, task, handleDragStart}:TaskProps) =>  {
   return(
-  <div className={"card todo"}>
+  <div id={`${taskIndex}`} className={"card todo"} draggable={true} 
+    onDragStart={(e) => handleDragStart(e, taskIndex, task.type)}>
   <div className="card-body">
     <h5 className="card-title">{task.title}</h5>
     <p className="card-text">{task.notes}</p>

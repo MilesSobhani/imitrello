@@ -17,6 +17,7 @@ const App: FC = () => {
   const [taskType, setNewType] = useState('')
   const [taskList, updateTasks] = useState(columnList)
 
+  //this should be changed if we want to add more types
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     let eventName = event.target.name;
     if (eventName === 'title') {
@@ -30,41 +31,78 @@ const App: FC = () => {
 
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-
     let newTodo: Todo = {
       title: (event.currentTarget.elements[0] as HTMLInputElement).value,
       notes: (event.currentTarget.elements[1] as HTMLInputElement).value,
       type: (event.currentTarget.elements[2] as HTMLInputElement).value
     }
-
+    updateTaskList(newTodo)
+    setNewName('')
+    setNewNotes('')
+  }
+  
+  const updateTaskList = (newTodo: Todo) => {
     let updateList = taskList
     for (var i = 0; i < taskList.length; i++) {
       if (newTodo.type === taskList[i].name) {
         updateList[i].todoList.push(newTodo)
         updateTasks(updateList)
-        setNewName('')
-        setNewNotes('')
-
       }
     }
-    console.log(updateList)
-
   }
-  // const [isOpen, setIsOpen] = React.useState(false);
-  // const toggleModal = () => setIsOpen(!isOpen);
+
+  const deleteTodo = (location: number[]) => {
+    let updateList = taskList;
+    updateList[location[0]].todoList.splice(location[1], 1)
+    updateTasks(updateList)
+  }
+
+  const handleDragStart = (
+    event: React.DragEvent<HTMLDivElement>, taskId:number, name:string): void => {
+    event.dataTransfer.setData('taskType', name);
+    event.dataTransfer.setData('taskId', taskId.toString())
+  }
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>): void => {
+    event.preventDefault()
+  }
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>, targetName:string) => {
+    
+    //Dragged todo type
+    let todoType: string = event.dataTransfer.getData("taskType")
+    //Dropped location
+    let taskLocation: number = Number(event.dataTransfer.getData('taskId'))
+    let updateList: Column[] = taskList
+    let deleteCoords: number[] = []
+    for (let j:number = 0; j < taskList.length; j++) {
+      if (todoType === taskList[j].name){
+        let todoToUpdate = taskList[j].todoList[taskLocation]
+        // console.log(taskList)
+        todoToUpdate.type = targetName;
+        deleteCoords = [j,taskLocation];
+        updateTaskList(todoToUpdate)
+        deleteTodo(deleteCoords)
+      }
+
+    }
+    
+    
+
+    // updateTaskList(newTodo:todo)
+  }
 
   return (
-    <div>
-      <div className="jumbotron jumbotron-fluid title">
-        <div className="container">
+    <div className='main'>
+      <div className="jumbotron title">
+
           <h1 className="display-4">Imitrello</h1>
           <h3 className="lead">Keep up with your todos or tickets</h3>
-        </div>
+
       </div>
 
       <form onSubmit={handleFormSubmit}>
         <div className="form-group">
-
           <div>
             <label>Todo Title</label>
             <input className="form-control" type='text' value={taskName} 
@@ -88,12 +126,17 @@ const App: FC = () => {
             <button className="btn btn-primary">+ Add new todo</button>
           </div>
         </div>
-
       </form>
 
       <div className="columnList">
-        {taskList.map((list: Column, key: number) => {
-          return <Column list={list} key={key} />
+        {taskList.map((list: Column, index: number) => {
+          return <Column list={list} 
+          columnIndex={index} 
+          handleDragOver={handleDragOver} 
+          handleDragStart={handleDragStart}
+          handleDrop={handleDrop}
+          updateTaskList={updateTaskList}
+          />
         })
         }
       </div>

@@ -1,10 +1,16 @@
 body {
   color: #574b4b;
+  max-width: 90%;
+  align-items: center;
+  justify-content: center;
+  margin:auto
 }
 
+
 form {
-  width:50%;
-  margin:auto
+  width:30%;
+  float: left;
+  margin:2%;
 }
 
 p {
@@ -15,30 +21,32 @@ select {
   margin:10px
 }
 
+
+
 .column {
   /* display: flex;
   align-items: center;
   justify-content: center;   */
   /* max-width: 18rem; */
-  background-color:lightgray;
+  flex-basis: 100%;
+  background-color:rgb(240, 240, 240);
   min-height: 1000px;
-  margin:25px;
+  margin:2%;
   border-top: 2px solid rgba(0, 0, 0, 0.125);
   border-left: 2px solid rgba(0, 0, 0, 0.125);
   border-right: 2px solid rgba(0, 0, 0, 0.125);
-  min-width: 300px;
 }
 
 .columnList {
   display:flex;
   align-items: center;
   justify-content: center; 
+  width: 100%;
 }
 
 .todo {
-  /* max-width: 18rem; */
-  margin: 10px;
-  width: auto;
+  margin: auto;
+  width: 80%;
 }
 
 .title {
