@@ -1,6 +1,6 @@
 # Intoduction
 
-This is a trello clone using TypeScript, React and Node.js. 
+This is a Trello inspired todo list using TypeScript, React and Node.js. 
 To run this application clone the repository, access your CLI and using npm use 'npm install' and 'npm start'. You should have a page appear on your browser that looks something like this
 
 
